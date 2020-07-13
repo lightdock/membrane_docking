@@ -10,9 +10,9 @@ CORES=24
 
 # Setup
 if test -f "restraints.list"; then
-    lightdock3_setup.py receptor.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -rst restraints.list
+    lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane -rst restraints.list
 else
-    lightdock3_setup.py receptor.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh
+    lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane
 fi
 
 # Simulation
@@ -23,7 +23,7 @@ s=`ls -d swarm_* | wc -l`
 swarms=$((s-1))
 for i in $(seq 0 $swarms)
   do
-    cd swarm_${i}; lgd_generate_conformations.py ../receptor.pdb ../ligand.pdb  gso_${STEPS}.out ${GLOWWORMS}; cd ..;
+    cd swarm_${i}; lgd_generate_conformations.py ../receptor_membrane.pdb ../ligand.pdb  gso_${STEPS}.out ${GLOWWORMS}; cd ..;
   done
 
 # Cluster per swarm
