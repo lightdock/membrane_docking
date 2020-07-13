@@ -61,3 +61,5 @@ Refinement with HADDOCK-CG protocol can be found at `refinement/haddock`. Result
  ```
 
 * `models.tgz`: compressed tar archive which contains the top 100 models refined by the HADDOCK-CG protocol.
+
+In addition, an example of `run.param` and `run.cns` for performing HADDOCK refinement is provided in `refinement/example`.
