@@ -1,0 +1,15 @@
+HADDOCK_DIR=path_to_HADDOCK
+N_COMP=2
+PDB_FILE1=./receptor/swarm_98_155_C.pdb
+PDB_LIST1=./receptor.list
+CGPDB_FILE1=./receptor/swarm_98_155_C_cg.pdb
+CGPDB_LIST1=./receptor_cg.list
+PROT_SEGID_1=C
+PDB_FILE2=./ligand/swarm_98_155_A.pdb
+PDB_LIST2=./ligand.list
+CGPDB_FILE2=./ligand/swarm_98_155_A_cg.pdb
+CGPDB_LIST2=./ligand_cg.list
+PROT_SEGID_2=A
+CGTOAA_TBL=./cg-to-aa.tbl
+PROJECT_DIR=path_to_run
+RUN_NUMBER=1
