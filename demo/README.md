@@ -199,13 +199,17 @@ The file [rank\_by\_scoring.list](docking/lightdock/3x29/rank_by_scoring.list) i
 Inside the [clustered](docking/lightdock/3x29/clustered) folder there is a file containing the models included in `rank_by_scoring.list`, but analyzed compared to the reference crystal structure: [lgd\_clustered\_rank.list](docking/lightdock/3x29/clustered/lgd_clustered_rank.list). Here you can see the top 5 models according to LightDock from `lgd_clustered_rank.list` file:
 
 ```
-#model             Fnatt      i-RMSD      l-RMSD     score
-swarm_60_174.pdb  0.186667    4.465       12.592     32.364
-swarm_64_171.pdb  0.64        1.643        5.028     30.785
-swarm_42_162.pdb  0.133333    4.317       13.809     27.664
-swarm_58_157.pdb  0.666667    1.293        3.071     26.081
-swarm_33_164.pdb  0.426667    1.774        5.108     26.013
+#model                Fnat      i-RMSD      l-RMSD     score
+swarm_60_174.pdb    0.186667    4.465       12.592     32.364
+swarm_64_171.pdb    0.64        1.643        5.028     30.785
+swarm_42_162.pdb    0.133333    4.317       13.809     27.664
+swarm_58_157.pdb    0.666667    1.293        3.071     26.081
+swarm_33_164.pdb    0.426667    1.774        5.108     26.013
 ```
+
+`Fnat` stands for *fraction of native contacts*, `i-RMSD` for interface-RMSD,, `l-RMSD` for ligand-RMSD and `score` is the LightDock scoring (using DFIRE scoring function).
+
+Please see "*Metrics for the evaluation of model quality and success rate*" in the "*Materials and Methods*" section of the manuscript for a description of the different metrics.
 
 
 ## 4. Refinement
