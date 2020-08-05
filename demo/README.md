@@ -154,7 +154,7 @@ time ./run.sh
 
 Here two different simulations are presented for the same demo target *3x29*. Please note that only one CPU core is used for clustering for the sake of simplicity of the `run.sh` script, despite this step could be parallelized too using the script included in LightDock called `ant_thony.py` (see its usage [here](https://lightdock.org/tutorials/membrane)).
 
-#### 3.1.1. Reduced set
+#### 3.1.1. Reduced simulation of the *3x29* complex
 
 This is a reduced simulation with very few number of glowworms and steps. This should not be considered as a biologically relevant simulation, but as a simple example to get the feeling of a complete and fast simulation.
 
@@ -172,7 +172,7 @@ This is a reduced simulation with very few number of glowworms and steps. This s
 | clustering |  3m10.348s    | 1      |
 
 
-#### 3.1.2. Manuscript
+#### 3.1.2. Manuscript simulation of the *3x29* complex
 
 The following configuration is exactly the same as the results reported in the manuscript:
 
@@ -188,6 +188,24 @@ The following configuration is exactly the same as the results reported in the m
 | setup      |  16.685s      | 1      |
 | simulation |  74m53.112s   | 8      |
 | clustering |  28m27.955s   | 1      |
+
+
+### 3.2. Results
+
+Precalculated results for your convenience are available [here](docking/lightdock/3x29/).
+
+The file [rank\_by\_scoring.list](docking/lightdock/3x29/rank_by_scoring.list) is a list of the top clustered simulation predicted models ranked by scoring function (the higher the scoring term the better).
+
+Inside the [clustered](docking/lightdock/3x29/clustered) folder there is a file containing the models included in `rank_by_scoring.list`, but analyzed compared to the reference crystal structure: [lgd\_clustered\_rank.list](docking/lightdock/3x29/clustered/lgd_clustered_rank.list). Here you can see the top 5 models according to LightDock from `lgd_clustered_rank.list` file:
+
+```
+#model             Fnatt      i-RMSD      l-RMSD     score
+swarm_60_174.pdb  0.186667    4.465       12.592     32.364
+swarm_64_171.pdb  0.64        1.643        5.028     30.785
+swarm_42_162.pdb  0.133333    4.317       13.809     27.664
+swarm_58_157.pdb  0.666667    1.293        3.071     26.081
+swarm_33_164.pdb  0.426667    1.774        5.108     26.013
+```
 
 
 ## 4. Refinement
