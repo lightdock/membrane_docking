@@ -78,3 +78,16 @@ usage: lightdock_setup [-h] [--seed_points STARTING_POINTS_SEED]
                        receptor_pdb_file ligand_pdb_file swarms glowworms
 lightdock_setup: error: the following arguments are required: receptor_pdb_file, ligand_pdb_file, swarms, glowworms
 ```
+
+## 3. Docking
+
+For the *3x29* demo, we will download the input structures and a bash script to easily run the simulation and analysis pipeline:
+
+```bash
+mkdir demo
+cd demo
+curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/docking/lightdock/membrane/3x29/run.sh
+curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo/docking/lightdock/receptor_membrane.pdb
+curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo/docking/lightdock/ligand.pdb
+chmod u+x run.sh
+```
