@@ -79,6 +79,11 @@ usage: lightdock_setup [-h] [--seed_points STARTING_POINTS_SEED]
 lightdock_setup: error: the following arguments are required: receptor_pdb_file, ligand_pdb_file, swarms, glowworms
 ```
 
+### 2.2. HADDOCK
+
+Please visit the [tutorial describing the use of a local version of HADDOCK2.4](https://www.bonvinlab.org/education/HADDOCK24/HADDOCK24-local-tutorial/) for an exhaustive guide on how to install and how to use the local version of the HADDOCK2.4 software.
+
+
 ## 3. Docking
 
 For the *3x29* demo, we will download the input structures and a bash script to easily run the simulation and analysis pipeline:
