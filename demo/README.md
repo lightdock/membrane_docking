@@ -8,7 +8,7 @@ This is an exhaustive guide for installing and running the software necessary fo
 Jorge Roel-Touris, Brian Jiménez-García and Alexandre M.J.J. Bonvin<br>
 *bioRxiv* 2020.07.20.211987; doi: [https://doi.org/10.1101/2020.07.20.211987](https://doi.org/10.1101/2020.07.20.211987)
 
-Reproducing all the results of the different simulations would require of HPC capabilities in order to accomplish them in a moderate short time. To overcome this problem, we have set a full demo using the smallest complex (*3x29*) in our [dataset and the default scenario](../docking/lightdock/membrane/3x29) which will demonstrate the **reproducibility **and **repeatability** of our protocol.
+Reproducing all the results of the different simulations would require of HPC capabilities in order to accomplish them in a moderate short time. To overcome this problem, we have set a full demo using the smallest complex (*3x29*) in our [dataset and the default scenario](../docking/lightdock/membrane/3x29) which will demonstrate the **reproducibility** and **repeatability** of our protocol.
 
 
 ## 2. Installation
