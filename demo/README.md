@@ -213,3 +213,102 @@ Please see "*Metrics for the evaluation of model quality and success rate*" in t
 
 
 ## 4. Refinement
+
+The top 100 docked models are refined using HADDOCK to remove potential clashes at the interface. This is a *two-step* procedure: 
+
+- (1) The generation of the all-atom and coarse-grained topologies.
+- (2) The coarse-grained refinement of the generated models.
+
+In [here](refinement/haddock/) you can find all the data needed to perform the refinement of the top100 docked models. In *run.param* file, you have to define a handful number of variables as:
+
+- `HADDOCK_DIR`: The directory of your HADDOCK local instalation.
+- `N_COMP`: The number of components.
+- `PDB_FILE1`: The path to your first *all-atom* receptor PDB file.
+- `PDB_LIST1`: A single column file listing all of your *all-atom* receptor PDB files.
+- `CGPDB_FILE1`: The path to your first *coarse-grained* receptor PDB file.
+- `CGPDB_LIST1`: A single column file listing all of your *coarse-grained* receptor PDB files.
+- `PROT_SEGID_1`; The segid record to be used during the simulation of your first (receptor) component.
+- `PDB_FILE2`: The path to your first *all-atom* ligand PDB file.
+- `PDB_LIST2`: A single column file listing all of your *all-atom* ligand PDB files.
+- `CGPDB_FILE2`: The path to your first *coarse-grained* ligand PDB file.
+- `CGPDB_LIST2`: A single column file listing all of your *coarse-grained* ligand PDB files.
+- `PROT_SEGID_2`: The segid record to be used during the simulation of your second (ligand) component.
+- `CGTOAA_TBL`: A HADDOCK-like restraints file of the CG to AA mapping.
+- `PROJECT_DIR`: The directory of your run.
+- `RUN_NUMBER`: A run number.
+
+`receptor` and `ligand`folder contain the top100 receptor and ligand files respectively without the bead bilayer. This is not required for the coarse-grained refinement since the proteins have been already docked.
+
+### 4.1 Generation of topologies
+
+For this task, please download all the content of the [refinement](refinement/haddock/) folder as:
+
+```
+bash
+cd ~
+mkdir refinement
+cd refinement
+curl -0 https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo/refinement/haddock/*
+```
+
+First, you need to execute HADDOCK once as:
+
+```
+bash
+haddock2.4
+```
+
+Then, in order to edit the `run.cns` to generate the topologies, execute the `generate_toppar.sh` as:
+
+```
+bash
+./generate_toppar.sh
+```
+
+And execute HADDOCK again as:
+
+```
+bash
+cd run1
+haddock2.4 &> haddock.out &
+```
+
+Check that the **all-atom** and **coarse-grained** topologies have been generated without issues in `begin-aa` and `begin` folders respectively.
+
+### Coarse-grained refinement
+
+For this, we need to modify a handful of parameters within the HADDOCK parameter file `run.cns` including:
+
+- `rotate180_it0=false` (to skip sampling 180° complementary interfaces)
+- `crossdock=false` (to refine receptor – ligand from the structures provided)
+- `rigidmini=false` (to skip it0 stage)
+- `randorien=false` (to skip it0 stage)
+- `rigidtrans=false` (to skip it0 stage)
+- `ntrials=1` (to skip it0 stage)
+- `structures_0=100` (for it0 stage)
+- `structures_1=100` (for it1 stage; must always be ≤ than structures_0)
+- `anastruc_1=100` (for analysis purposes at it1 stage)
+- `waterrefine=100` (for itw stage; this is the number of final output models)
+- `initiosteps=0` (to skip it1 stage)
+- `cool1_steps=0` (to skip it1 stage)
+- `cool2_steps=0` (to skip it1 stage)
+- `cool3_steps=0` (to skip it1 stage)
+- `dielec_0=cdie` (to switch a constant dieletric constant when CG is used)
+- `dielec_1=cdie` (to switch a constant dieletric constant when CG is used)
+
+For your convenience, you can just execute the `cg_refinement.sh` script as:
+
+```
+bash
+./cg_refinement.sh
+```
+
+And execute HADDOCK again:
+
+```
+bash
+cd run1
+haddock2.4 &> haddock.out &
+```
+
+Once the simulation is done, you will find the refined models under `run1/structures/it1/water` with `run1/structures/it1/water/file.list` containing the ranking according to HADDOCK score
