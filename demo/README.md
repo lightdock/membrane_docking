@@ -156,7 +156,7 @@ Here two different simulations are presented for the same demo target *3x29*. Pl
 
 #### 3.1.1. Reduced simulation of the *3x29* complex
 
-This is a reduced simulation with very few number of glowworms and steps. This should not be considered as a biologically relevant simulation, but as a simple example to get the feeling of a complete and fast simulation.
+This is a reduced simulation with very few number of glowworms and steps.
 
 **Variables:**
 
