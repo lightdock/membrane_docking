@@ -8,7 +8,7 @@ This is an exhaustive guide for installing and running the software necessary fo
 Jorge Roel-Touris, Brian Jiménez-García and Alexandre M.J.J. Bonvin<br>
 *bioRxiv* 2020.07.20.211987; doi: [https://doi.org/10.1101/2020.07.20.211987](https://doi.org/10.1101/2020.07.20.211987)
 
-Reproducing all the results of the different simulations would require of HPC capabilities in order to accomplish them in a moderate short time. To overcome this problem, we have set a full demo using the smallest complex (*3x29*) in our [dataset and the default scenario](../docking/lightdock/membrane/3x29) which will demonstrate the **reproducibility** and **repeatability** of our protocol.
+Reproducing all the results of the different simulations would require of HPC capabilities in order to accomplish them in a moderate amount of time. Here, we have set a full demo using *3x29* as a test case in order to demonstrate the **reproducibility** and **repeatability** of our protocol.
 
 
 ## 2. Installation
@@ -46,7 +46,7 @@ If Python3 is not installed in your OS, there are different options to install i
 
 #### 2.1.2. *pip* and virtual environments
 
-***pip*** is the reference Python package manager. It's used to install and update Python packages. *pip* is usually installed by default if the Python interpreter is available. We will need it to install LightDock and its dependencies. Please follow the [official guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) if *pip* is not installed in your OS.
+***pip*** is the reference Python package manager and it is used to install and update Python packages. *pip* is usually installed by default if the Python interpreter is available. In this case, LightDock and its dependencies will be installed via *pip*, so please follow the [official guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) if *pip* is not installed in your OS.
 
 #### 2.1.3. Installing LightDock via *pip*
 
@@ -113,7 +113,7 @@ CORES=24
 ################
 
 # Setup
-if test -f "restraints.list"; then
+if demo -f "restraints.list"; then
     lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane -rst restraints.list
 else
     lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane
@@ -152,7 +152,7 @@ time ./run.sh
 
 ### 3.1. Timing
 
-Here two different simulations are presented for the same demo target *3x29*. Please note that only one CPU core is used for clustering for the sake of simplicity of the `run.sh` script, despite this step could be parallelized too using the script included in LightDock called `ant_thony.py` (see its usage [here](https://lightdock.org/tutorials/membrane)).
+Here two different simulations are presented for the same demo target *3x29*. Please note that only one CPU core is used for clustering, despite this step could be parallelized too using the script included in LightDock called `ant_thony.py` (see its usage [here](https://lightdock.org/tutorials/membrane)).
 
 #### 3.1.1. Reduced simulation of the *3x29* complex
 
@@ -196,7 +196,7 @@ Precalculated results for your convenience are available [here](docking/lightdoc
 
 The file [rank\_by\_scoring.list](docking/lightdock/3x29/rank_by_scoring.list) is a list of the top clustered simulation predicted models ranked by scoring function (the higher the scoring term the better).
 
-Inside the [clustered](docking/lightdock/3x29/clustered) folder there is a file containing the models included in `rank_by_scoring.list`, but analyzed compared to the reference crystal structure: [lgd\_clustered\_rank.list](docking/lightdock/3x29/clustered/lgd_clustered_rank.list). Here you can see the top 5 models according to LightDock from `lgd_clustered_rank.list` file:
+Inside the [clustered](docking/lightdock/3x29/clustered) folder there is a file containing the models included in `rank_by_scoring.list`, but analyzed compared to the reference crystal structure: [lgd\_clustered\_rank.list](docking/lightdock/3x29/clustered/lgd_clustered_rank.list). Here you can see the top 5 models of the LightDock docking simulation: `lgd_clustered_rank.list` file:
 
 ```
 #model                Fnat      i-RMSD      l-RMSD     score
@@ -207,7 +207,7 @@ swarm_58_157.pdb    0.666667    1.293        3.071     26.081
 swarm_33_164.pdb    0.426667    1.774        5.108     26.013
 ```
 
-`Fnat` stands for *fraction of native contacts*, `i-RMSD` for interface-RMSD,, `l-RMSD` for ligand-RMSD and `score` is the LightDock scoring (using DFIRE scoring function).
+`Fnat` stands for *fraction of native contacts*, `i-RMSD` for interface-RMSD, `l-RMSD` for ligand-RMSD and `score` is the LightDock scoring (using DFIRE scoring function).
 
 Please see "*Metrics for the evaluation of model quality and success rate*" in the "*Materials and Methods*" section of the manuscript for a description of the different metrics.
 
