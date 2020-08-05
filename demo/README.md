@@ -219,7 +219,7 @@ The top 100 docked models are refined using HADDOCK to remove potential clashes 
 - (1) The generation of the all-atom and coarse-grained topologies.
 - (2) The coarse-grained refinement of the generated models.
 
-In [here](refinement/haddock/) you can find all the data needed to perform the refinement of the top100 docked models. In *run.param* file, you have to define a handful number of variables as:
+In [here](refinement/haddock/) you can find all the data needed to perform the refinement of the top100 docked models for the *3x29* example. In *run.param* file, you have to define a handful number of variables as:
 
 - `HADDOCK_DIR`: The directory of your HADDOCK local instalation.
 - `N_COMP`: The number of components.
