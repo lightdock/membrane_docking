@@ -63,8 +63,8 @@ source lightdock-env/bin/activate
 
 ```bash
 cd lightdock-env
-pip install numpy
-pip install lightdock
+pip3 install numpy
+pip3 install lightdock
 ```
 
 If installation was successful, you should see a similar output to this if you try to execute `lightdock_3_setup.py` command:
@@ -91,3 +91,98 @@ curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo
 curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo/docking/lightdock/ligand.pdb
 chmod u+x run.sh
 ```
+
+Please note that the structures are simulation-ready and have been prepared according to the [**Membrane-associated protein docking**](https://lightdock.org/tutorials/membrane) tutorial.
+
+The `run.sh` script might be tunned in the main variables section. The values shown here are the ones used for all the results in the manuscript:
+
+```bash
+#!/bin/bash
+
+################
+# You may change these variables according to your needs
+SWARMS=400
+GLOWWORMS=200
+STEPS=100
+CORES=24
+################
+
+# Setup
+if test -f "restraints.list"; then
+    lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane -rst restraints.list
+else
+    lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane
+fi
+
+# Simulation
+lightdock3.py setup.json ${STEPS} -s fastdfire -c ${CORES}
+
+# Generate predictions in PDB format
+s=`ls -d swarm_* | wc -l`
+swarms=$((s-1))
+for i in $(seq 0 $swarms)
+  do
+    cd swarm_${i}; lgd_generate_conformations.py ../receptor_membrane.pdb ../ligand.pdb  gso_${STEPS}.out ${GLOWWORMS}; cd ..;
+  done
+
+# Cluster per swarm
+for i in $(seq 0 $swarms)
+  do
+    cd swarm_${i}; lgd_cluster_bsas.py gso_${STEPS}.out; cd ..;
+  done
+
+# Generate ranking
+lgd_rank.py ${swarms} ${STEPS}
+
+echo "Done."
+```
+
+For running a simulation, it is as easy as running this script:
+
+```bash
+time ./run.sh
+```
+
+**Before running this demo simulation, please see next section "3.1. Timing" to get an expected completion time**.
+
+### 3.1. Timing
+
+Here two different simulations are presented for the same demo target *3x29*. Please note that only one CPU core is used for clustering for the sake of simplicity of the `run.sh` script, despite this step could be parallelized too using the script included in LightDock called `ant_thony.py` (see its usage [here](https://lightdock.org/tutorials/membrane)).
+
+#### 3.1.1. Reduced set
+
+This is a reduced simulation with very few number of glowworms and steps. This should not be considered as a biologically relevant simulation, but as a simple example to get the feeling of a complete and fast simulation.
+
+**Variables:**
+
+- CPU: 8 cores Intel(R) i7 CPU X980 @ 3.33GHz
+- Swarms: 400, after setup number of swarms to simulate is 72.
+- Glowworms: 20
+- Steps: 10
+
+|   Step     |      Time     | Cores  |
+|------------|:-------------:|:------:|
+| setup      |  15.598s      | 1      |
+| simulation |  11.799s      | 8      |
+| clustering |  3m10.348s    | 1      |
+
+
+#### 3.1.2. Manuscript
+
+The following configuration is exactly the same as the results reported in the manuscript:
+
+**Variables:**
+
+- CPU: 8 cores Intel(R) i7 CPU X980 @ 3.33GHz
+- Swarms: 400, after setup number of swarms to simulate is 72.
+- Glowworms: 200
+- Steps: 100
+
+|   Step     |      Time     | Cores  |
+|------------|:-------------:|:------:|
+| setup      |  16.685s      | 1      |
+| simulation |  74m53.112s   | 8      |
+| clustering |  28m27.955s   | 1      |
+
+
+## 4. Refinement
