@@ -113,7 +113,7 @@ CORES=24
 ################
 
 # Setup
-if demo -f "restraints.list"; then
+if test -f "restraints.list"; then
     lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane -rst restraints.list
 else
     lightdock3_setup.py receptor_membrane.pdb ligand.pdb ${SWARMS} ${GLOWWORMS} --noxt --noh -membrane
