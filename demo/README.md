@@ -219,7 +219,46 @@ The top 100 docked models are refined using HADDOCK to remove potential clashes 
 - (1) The generation of the all-atom and coarse-grained topologies.
 - (2) The coarse-grained refinement of the generated models.
 
-In [here](refinement/haddock/) you can find all the data needed to perform the refinement of the top100 docked models for the *3x29* example. In `run.param` file, you have to define a number of variables as:
+Prior refining the models through the coarse-grained protocol, we need to prepare the LightDock generated models. For demonstration purposes we will show the process for the top1 scoring model.
+
+For this task, please download all the content of the [refinement](refinement/haddock/) folder as:
+
+```bash
+cd ~
+mkdir refinement
+cd refinement
+curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo/refinement/haddock/*
+```
+
+First, we remove the membrane bead bilayer as:
+
+```bash
+grep -v "MMB" ../../docking/lightdock/3x29/clustered/swarm_60_174.pdb >> tmp
+mv tmp swarm_60_174.pdb
+```
+
+Then, we split the model by chain. This can be done by using the **pdb_splitchain.py** of [pdb-tools toolkit](https://github.com/haddocking/pdb-tools) as:
+
+```bash
+python pdb_splitchain.py swarm_60_174.pdb
+```
+
+This will generate two different files (**swarm_60_174_A.pdb** and **swarm_60_174_B.pdb**) each of them corresponding to receptor and ligand respectively. Now, we will generate the coarse-grained models using our **in-home** script. To do so, please execute it as:
+
+```bash
+python aa2cg_v2-2.py swarm_60_174_A.pdb
+python aa2cg_v2-2.py swarm_60_174_B.pdb
+```
+
+This will generate four different files (**swarm_60_174_A_cg.pdb** and **swarm_60_174_B_cg.pdb**) each of them corresponding to the coarse-grained receptor and ligand respectively, together with **swarm_60_174_A_cg_to_aa.tbl** and **swarm_60_174_B_cg_to_aa.tbl**. The latter files contain the cg-to-aa mapping needed to restore the atomistic resolution after the refinement. These need to be combined as:
+
+```bash
+cat swarm_60_174_A_cg_to_aa.tbl swarm_60_174_B_cg_to_aa.tbl >> cg-to-aa.tbl
+```
+
+This process should be repeated for each of the models to be refined. The atomistic and coarse-grained models of the receptor and ligand components must be copied into [receptor](refinement/haddock/receptor) and [ligand](refinement/haddock/ligand) directories accordingly.
+
+For the sake of simplicity, in [here](refinement/haddock/) you can find all the data needed to perform the refinement of the top100 docked models for the *3x29* example. In `run.param` file, you have to define a number of variables as:
 
 - `HADDOCK_DIR`: The directory of your HADDOCK local instalation.
 - `N_COMP`: The number of components.
@@ -240,15 +279,6 @@ In [here](refinement/haddock/) you can find all the data needed to perform the r
 `receptor` and `ligand`folders contain the top 100 receptor and ligand PDB files respectively without the bead bilayer. The bead bilayer is not required for the coarse-grained refinement since the proteins have been already docked.
 
 ### 4.1. Generation of topologies
-
-For this task, please download all the content of the [refinement](refinement/haddock/) folder as:
-
-```bash
-cd ~
-mkdir refinement
-cd refinement
-curl -O https://raw.githubusercontent.com/lightdock/membrane_docking/master/demo/refinement/haddock/*
-```
 
 First, you need to execute HADDOCK once as:
 
