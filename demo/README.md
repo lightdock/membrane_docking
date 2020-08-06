@@ -156,7 +156,7 @@ Here two different simulations are presented for the same demo target *3x29*. Pl
 
 #### 3.1.1. Reduced simulation of the *3x29* complex
 
-This is a reduced simulation with very few number of glowworms and steps.
+This is a reduced simulation with very few number of glowworms and steps. **It is intended for testing the workflow and settings, but not for a real production run.**
 
 **Variables:**
 
@@ -174,7 +174,7 @@ This is a reduced simulation with very few number of glowworms and steps.
 
 #### 3.1.2. Manuscript simulation of the *3x29* complex
 
-The following configuration is exactly the same as the results reported in the manuscript:
+The following configuration is exactly the same as the results reported in the [manuscript](https://www.biorxiv.org/content/10.1101/2020.07.20.211987v1):
 
 **Variables:**
 
