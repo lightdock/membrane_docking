@@ -243,7 +243,7 @@ Then, we split the model by chain. This can be done by using the **pdb_splitchai
 python pdb_splitchain.py swarm_60_174.pdb
 ```
 
-This will generate two different files (**swarm_60_174_A.pdb** and **swarm_60_174_B.pdb**) each of them corresponding to receptor and ligand respectively. Now, we will generate the coarse-grained models using our **in-home** script. To do so, please execute it as:
+This will generate two different files (**swarm_60_174_A.pdb** and **swarm_60_174_B.pdb**) each of them corresponding to receptor and ligand respectively. Now, we will generate the coarse-grained models using our [in-home](refinement/haddock/aa2cg_v2-2.py) script. To do so, please execute it as:
 
 ```bash
 python aa2cg_v2-2.py swarm_60_174_A.pdb
