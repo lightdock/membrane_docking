@@ -22,7 +22,7 @@ Docking protocols can be found in the `docking` folder. For each of the two prot
 
 #### 2.1.1. LightDock
 
-Folder `docking/lightdock` containts data for the different five scenarios: `average`, `blind`, `filtered`, `membrane` and `minimum`.
+Folder `docking/lightdock` containts data for the different six scenarios: `average`, `blind`, `filtered`, `membrane`, `minimum` and `restraints`.
 
 Each of the scenarios contains for the 18 complexes of the benchmark the following data:
 
